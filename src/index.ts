@@ -39,7 +39,7 @@ export type AppTracingConfig = {
   instrumentation: string[]
 }
 
-class Tracer {
+export class Tracer {
   constructor(cfg: AppTracingConfig) {
     this.initial(cfg)
   }
@@ -164,5 +164,3 @@ class Tracer {
     return opentelemetry
   }
 }
-
-exports.Tracer = Tracer
