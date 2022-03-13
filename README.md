@@ -50,3 +50,4 @@ const tracer = new Tracer(config)
 ### 参考链接
  - https://docs.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable?tabs=nodejs
  - https://github.com/open-telemetry/opentelemetry-js
+ - https://open-telemetry.github.io/opentelemetry-js-api/modules.html

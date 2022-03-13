@@ -41,7 +41,7 @@ export type AppTracingConfig = {
 
 class Tracer {
   constructor(cfg: AppTracingConfig) {
-    this.init(cfg)
+    this.initial(cfg)
   }
 
   getExporterClass(name: string) {
@@ -98,7 +98,7 @@ class Tracer {
     }
   }
 
-  init(cfg: AppTracingConfig) {
+  initial(cfg: AppTracingConfig) {
     const config: TracerConfig = {}
     if (cfg.config && cfg.config.resource) {
       const resultAttrs: any = Object.assign({}, cfg.config.resource)
@@ -134,8 +134,34 @@ class Tracer {
       })
     }
     
+    // 返回 Global TracerApi 实例
     const tracer = opentelemetry.trace.getTracer('tracer')
     return tracer
+  }
+
+  /**
+   * 获取当前 active 的 span
+   * @returns Span
+   */
+  getCurrentActiveSpan () {
+    return opentelemetry.trace.getSpan(opentelemetry.context.active())
+  }
+
+  /**
+   * 获取当前活跃的 traceId
+   * @returns String | null
+   */
+  getCurrentActiveTraceId () {
+    const currentActiveSpan = this.getCurrentActiveSpan()
+    return currentActiveSpan?.spanContext()?.traceId
+  }
+
+  /**
+   * 获取 opentelemetry 实例，用于执行原生的 opentelemetry-js 操作
+   * @returns opentelemetry
+   */
+  getOpentelemetry () {
+    return opentelemetry
   }
 }
 
