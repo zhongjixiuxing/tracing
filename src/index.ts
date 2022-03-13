@@ -1,4 +1,5 @@
 import opentelemetry from '@opentelemetry/api'
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node'
 import { JaegerExporter } from "@opentelemetry/exporter-jaeger"
 import { registerInstrumentations } from '@opentelemetry/instrumentation'
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
@@ -130,7 +131,8 @@ export class Tracer {
 
     if (cfg.instrumentation) {
       registerInstrumentations({
-        instrumentations: this.getInstrumentations(cfg.instrumentation)
+        // instrumentations: this.getInstrumentations(cfg.instrumentation)
+        instrumentations: getNodeAutoInstrumentations()
       })
     }
     
